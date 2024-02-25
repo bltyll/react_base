@@ -1,0 +1,42 @@
+{
+  "search.exclude": {
+    "/node_modules": true,
+    "dist": true,
+    "pnpm-lock.yaml": true
+  },
+  //屏蔽引入tailwindcss的提示警告
+  "css.lint.unknownAtRules": "ignore",
+  //删除未引用import
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "files.autoSave": "onFocusChange",
+  // 设置全部语言在保存时自动格式化
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  // 设置全部语言的默认格式化程序为prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // 设置特定语言的默认格式化程序为prettier
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "javascript.validate.enable": false
+}
