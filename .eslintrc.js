@@ -29,6 +29,8 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': [0],
-    '@typescript-eslint/no-explicit-any': [0]
+    '@typescript-eslint/no-explicit-any': [0],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [1]
   }
 };
