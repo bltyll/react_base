@@ -1,5 +1,6 @@
 // src/utils/net.js
 
+import { getToken } from '@/stores';
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -17,22 +18,18 @@ const service = axios.create({
   timeout: 30000 // 请求超时时间,
   //withCredentials: true, // 跨域请求时是否需要使用凭证
 });
-//请求拦截
-service.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('token') || '';
-    config.headers.token = token;
-    return config;
-  },
-  error => {
-    return Promise.resolve(error);
-  }
-);
+//请求头处理
+const handleRequestConfig = (config: InternalAxiosRequestConfig) => {
+  const token = getToken();
+  console.log(token);
+  config.headers.token = localStorage.getItem('token') || '';
+};
+
 //通用网络错误处理
-const handleNetworkError = (err: AxiosError) => {
+const handleNetworkError = (status: number | undefined) => {
   let errMessage = '未知错误';
-  if (err.status) {
-    switch (err.status) {
+  if (status) {
+    switch (status) {
       case 400:
         errMessage = '错误的请求';
         break;
@@ -88,6 +85,16 @@ const handleSuccess = (code: number) => {
       return true;
   }
 };
+//请求拦截
+service.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    handleRequestConfig(config);
+    return config;
+  },
+  error => {
+    return Promise.resolve(error);
+  }
+);
 //响应拦截
 service.interceptors.response.use(
   (response: AxiosResponse) => {
@@ -96,17 +103,13 @@ service.interceptors.response.use(
     return response;
   },
   (err: AxiosError) => {
-    handleNetworkError(err);
+    handleNetworkError(err.status);
     return Promise.reject(err);
   }
 );
+//通用方法
 export function request<T>(url: string, config: AxiosRequestConfig): Promise<T> {
-  return service
-    .request({ url, ...config })
-    .then(response => {
-      return response.data;
-    })
-    .catch(err => {
-      return err;
-    });
+  return service.request({ url, ...config }).then(response => {
+    return response.data;
+  });
 }

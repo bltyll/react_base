@@ -9,18 +9,25 @@ interface Action {
   setTheme: (theme: State['theme']) => void;
 }
 //store
-export const themeStore = create(
+export const useGlobalStore = create(
   persist<State & Action>(
     set => ({
       theme: 'light',
       setTheme: (theme: State['theme']) => set({ theme })
     }),
-    { name: 'theme' }
+    {
+      //持久化
+      name: 'theme',
+      partialize: state =>
+        ({
+          theme: state.theme
+        }) as any
+    }
   )
 );
 //dispatch
-export const useThemeDispatch = () => {
-  const { setTheme } = themeStore();
+export const useGlobalDispatch = () => {
+  const { setTheme } = useGlobalStore();
   return {
     setTheme: (theme: State['theme'], callback?: () => void) => {
       setTheme(theme);
@@ -28,7 +35,20 @@ export const useThemeDispatch = () => {
         callback();
       }
       document.documentElement.className = theme;
-    },
-    theme: themeStore(state => state.theme)
+    }
   };
 };
+/**
+ * 在react环境外获取的最新theme状态
+ */
+export const getTheme = () => useGlobalStore.getState().theme;
+/**
+ * 获取theme态
+ */
+export const useTheme = () => {
+  return selectStore('theme');
+};
+//获取单个state
+function selectStore(state: keyof State) {
+  return useGlobalStore(store => store[state]);
+}
