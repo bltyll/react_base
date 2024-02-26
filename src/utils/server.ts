@@ -1,31 +1,43 @@
-// src/utils/net.js
-
-import { getToken } from '@/stores';
+import { getToken, setToken } from '@/stores';
 import axios, {
   AxiosError,
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig
 } from 'axios';
+/**
+ * 返回数据的格式
+ */
 export interface IDataType<T = any> {
   code: string;
   msg: string;
   data: T;
 }
+
+/**
+ * axios实体
+ */
 const service = axios.create({
   // 配置
   // baseURL: process.env.BASE_URL,
   timeout: 30000 // 请求超时时间,
   //withCredentials: true, // 跨域请求时是否需要使用凭证
 });
-//请求头处理
+
+/**
+ * 请求头处理
+ * @param config
+ */
 const handleRequestConfig = (config: InternalAxiosRequestConfig) => {
   const token = getToken();
-  console.log(token);
-  config.headers.token = localStorage.getItem('token') || '';
+
+  config.headers.token = token || '';
 };
 
-//通用网络错误处理
+/**
+ * 通用网络错误处理
+ * @param status
+ */
 const handleNetworkError = (status: number | undefined) => {
   let errMessage = '未知错误';
   if (status) {
@@ -75,16 +87,21 @@ const handleNetworkError = (status: number | undefined) => {
   //全局提示
   console.log(errMessage);
 };
-//业务错误处理
+
+/**
+ * 务错误处理
+ */
 const handleSuccess = (code: number) => {
   switch (code) {
+    //登录token过期
     case 1411:
-      console.log(1);
+      setToken(null);
       return false;
     default:
       return true;
   }
 };
+
 //请求拦截
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
@@ -95,6 +112,7 @@ service.interceptors.request.use(
     return Promise.resolve(error);
   }
 );
+
 //响应拦截
 service.interceptors.response.use(
   (response: AxiosResponse) => {
@@ -107,7 +125,13 @@ service.interceptors.response.use(
     return Promise.reject(err);
   }
 );
-//通用方法
+
+/**
+ * 通用请求方法
+ * @param url
+ * @param config
+ * @returns
+ */
 export function request<T>(url: string, config: AxiosRequestConfig): Promise<T> {
   return service.request({ url, ...config }).then(response => {
     return response.data;

@@ -2,18 +2,18 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 //type
 interface State {
-  token: string;
+  token: string | null;
 }
 
 interface Action {
-  setToken: (token: string) => void;
+  setToken: (token: State['token']) => void;
 }
 //store
 export const useAuthStore = create(
   persist<State & Action>(
     set => ({
-      token: '',
-      setToken: (token: string) => set({ token })
+      token: null,
+      setToken: (token: State['token']) => set({ token })
     }),
     { name: 'token' }
   )
@@ -46,7 +46,16 @@ export const getToken = () => useAuthStore.getState().token;
 export const useToken = () => {
   return selectStore('token');
 };
-//获取单个state
+/**
+ * 在react环境外设置token
+ */
+export const setToken = (token: State['token']) => {
+  useAuthStore.setState({ token });
+};
+/**
+ *
+ * 获取单个state
+ */
 function selectStore(state: keyof State) {
   return useAuthStore(store => store[state]);
 }

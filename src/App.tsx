@@ -5,7 +5,7 @@ import { useAuthDispatch, useToken } from './stores';
 import { useGlobalDispatch, useTheme } from './stores/themeStore';
 function App() {
   const { setTheme } = useGlobalDispatch();
-  const { signOut } = useAuthDispatch();
+  const { signOut, signIn } = useAuthDispatch();
   const token = useToken();
   const theme = useTheme();
   return (
@@ -16,6 +16,7 @@ function App() {
       <button
         className='border border-solid'
         onClick={async () => {
+          signIn('token');
           if (theme === 'dark') {
             setTheme('light');
           } else {
