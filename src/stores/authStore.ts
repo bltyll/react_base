@@ -32,7 +32,7 @@ export const useAuthDispatch = () => {
       if (callback) {
         callback();
       }
-      setToken('');
+      setToken(null);
     }
   };
 };

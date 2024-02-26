@@ -1,8 +1,9 @@
-import { Home } from '@/pages';
+import { RouterProvider } from 'react-router-dom';
 import './app.css';
+import { route } from './routes';
 import { getTemplate } from './servers/test';
 import { useAuthDispatch, useToken } from './stores';
-import { useGlobalDispatch, useTheme } from './stores/themeStore';
+import { useGlobalDispatch, useTheme } from './stores/globalStore';
 function App() {
   const { setTheme } = useGlobalDispatch();
   const { signOut, signIn } = useAuthDispatch();
@@ -12,7 +13,6 @@ function App() {
     <div className='bg-white dark:bg-black'>
       {token}
       {theme}
-      <Home></Home>
       <button
         className='border border-solid'
         onClick={async () => {
@@ -32,6 +32,7 @@ function App() {
       >
         button
       </button>
+      <RouterProvider router={route}></RouterProvider>
     </div>
   );
 }
