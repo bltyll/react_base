@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkreact_base=self.webpackChunkreact_base||[]).push([[2378],{6824:function(e,t,r){var s=r(7186),u=r(9608),a=r(6172),c=r(8323),n=r(6726),o=r(9975),b=s.Symbol,f=u("wks"),k=o?b.for||b:b&&b.withoutSetter||c;e.exports=function(e){return a(f,e)||(f[e]=n&&a(b,e)?b[e]:k("Symbol."+e)),f[e]}}}]);

@@ -1,6 +1,7 @@
 import { getTemplate } from '@/servers/test';
 import { useAuthDispatch } from '@/stores';
 import { useGlobalDispatch, useTheme } from '@/stores/globalStore';
+import dayjs from 'dayjs';
 import style from './index.m.css';
 const Home = () => {
   const { signOut, signIn } = useAuthDispatch();
@@ -19,6 +20,8 @@ const Home = () => {
         className='border border-solid'
         onClick={async () => {
           // signIn('token');
+          console.log(dayjs('2013-11-18 11:55').format());
+
           if (theme === 'dark') {
             setTheme('light');
           } else {
@@ -26,7 +29,7 @@ const Home = () => {
           }
           try {
             const a = await getTemplate(1);
-            console.log(a);
+            // console.log(a);
           } catch (error) {
             console.log(error);
           }

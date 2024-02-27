@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkreact_base=self.webpackChunkreact_base||[]).push([[278],{2118:function(e,t,r){var s=r(1651),a=r(2654);s({target:"Promise",stat:!0,forced:r(527).CONSTRUCTOR},{reject:function(e){var t=a.f(this);return(0,t.reject)(e),t.promise}})}}]);
