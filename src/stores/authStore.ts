@@ -1,6 +1,9 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-//type
+/**
+ * store的Type
+ */
 interface State {
   token: string | null;
 }
@@ -8,7 +11,9 @@ interface State {
 interface Action {
   setToken: (token: State['token']) => void;
 }
-//store
+/**
+ * store
+ */
 export const useAuthStore = create(
   persist<State & Action>(
     set => ({
@@ -18,15 +23,22 @@ export const useAuthStore = create(
     { name: 'token' }
   )
 );
-//状态操作集
+/**
+ * 状态操作集
+ * @returns
+ */
 export const useAuthDispatch = () => {
   const { setToken } = useAuthStore();
+  const navigate = useNavigate();
+  const { state } = useLocation();
   return {
     signIn: (token: State['token'], callback?: () => void) => {
       if (callback) {
         callback();
       }
       setToken(token);
+      //跳回上次的页面
+      navigate(state);
     },
     signOut: (callback?: () => void) => {
       if (callback) {
