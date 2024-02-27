@@ -1,15 +1,16 @@
 import { useAuthDispatch } from '@/stores';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { signIn } = useAuthDispatch();
   const navigate = useNavigate();
+  const { state } = useLocation();
   return (
     <div>
       <button
         onClick={() => {
           signIn('token', () => {
-            navigate('/home');
+            navigate(state);
           });
         }}
       >

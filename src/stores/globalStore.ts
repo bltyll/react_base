@@ -52,5 +52,5 @@ export const useTheme = () => {
 };
 //获取单个state
 function selectStore(state: keyof State) {
-  return useGlobalStore(store => store[state]);
+  return localStorage.getItem(state) ? useGlobalStore(store => store[state]) : null;
 }

@@ -57,5 +57,5 @@ export const setToken = (token: State['token']) => {
  * 获取单个state
  */
 function selectStore(state: keyof State) {
-  return useAuthStore(store => store[state]);
+  return localStorage.getItem(state) ? useAuthStore(store => store[state]) : null;
 }
