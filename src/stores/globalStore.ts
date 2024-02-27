@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 //type
 interface State {
   theme: 'light' | 'dark';
-  a: string;
+  timezone: string | null;
 }
 
 interface Action {
@@ -14,7 +14,7 @@ export const useGlobalStore = create(
   persist<State & Action>(
     set => ({
       theme: 'light',
-      a: '1',
+      timezone: null,
       setTheme: (theme: State['theme']) => set({ theme })
     }),
     {
@@ -41,9 +41,11 @@ export const useGlobalDispatch = () => {
   };
 };
 /**
- * 在react环境外获取的最新theme状态
+ * 在react环境外获取的最新状态
  */
 export const getTheme = () => useGlobalStore.getState().theme;
+export const getTimezone = () => useGlobalStore.getState().timezone;
+
 /**
  * 获取theme态
  */

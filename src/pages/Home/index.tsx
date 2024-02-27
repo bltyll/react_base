@@ -1,11 +1,10 @@
 import { getTemplate } from '@/servers/test';
-import { useAuthDispatch, useToken } from '@/stores';
+import { useAuthDispatch } from '@/stores';
 import { useGlobalDispatch, useTheme } from '@/stores/globalStore';
 import style from './index.m.css';
 const Home = () => {
   const { signOut, signIn } = useAuthDispatch();
   const { setTheme } = useGlobalDispatch();
-  const token = useToken();
   const theme = useTheme();
   return (
     <div className={style.a}>
@@ -19,7 +18,7 @@ const Home = () => {
       <button
         className='border border-solid'
         onClick={async () => {
-          signIn('token');
+          // signIn('token');
           if (theme === 'dark') {
             setTheme('light');
           } else {

@@ -5,6 +5,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig
 } from 'axios';
+
 /**
  * 返回数据的格式
  */
@@ -102,7 +103,9 @@ const handleSuccess = (code: number) => {
   }
 };
 
-//请求拦截
+/**
+ * 请求拦截
+ */
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     handleRequestConfig(config);
@@ -113,7 +116,9 @@ service.interceptors.request.use(
   }
 );
 
-//响应拦截
+/**
+ * 响应拦截
+ */
 service.interceptors.response.use(
   (response: AxiosResponse) => {
     if (response.status !== 200) return Promise.reject(response);
