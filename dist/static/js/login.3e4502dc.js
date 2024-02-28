@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkreact_base=self.webpackChunkreact_base||[]).push([[966],{8270:function(n,e,t){t.r(e);var c=t(7772),i=t(3274);e.default=function(){var n=(0,c.A$)().signIn;return(0,i.jsx)("div",{children:(0,i.jsx)("button",{onClick:function(){n("token")},children:"signin"})})}}}]);
