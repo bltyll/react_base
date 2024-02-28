@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-//type
+/**
+ * type
+ */
 interface State {
   theme: 'light' | 'dark';
   timezone: string | null;
@@ -9,7 +11,9 @@ interface State {
 interface Action {
   setTheme: (theme: State['theme']) => void;
 }
-//store
+/**
+ * store
+ */
 export const useGlobalStore = create(
   persist<State & Action>(
     set => ({
@@ -27,7 +31,10 @@ export const useGlobalStore = create(
     }
   )
 );
-//dispatch
+/**
+ * 操作集
+ * @returns
+ */
 export const useGlobalDispatch = () => {
   const { setTheme } = useGlobalStore();
   return {

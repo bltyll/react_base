@@ -1,4 +1,4 @@
-import Loading from '@/Loading';
+import Loading from '@/loading';
 import { RequireAuth } from '@/routes';
 import { Suspense } from 'react';
 import { Link, Outlet } from 'react-router-dom';

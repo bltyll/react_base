@@ -49,7 +49,7 @@ export const useAuthDispatch = () => {
   };
 };
 /**
- * 在react环境外获取的最新Token状态
+ * 在react环境外获取的最新状态
  */
 export const getToken = () => useAuthStore.getState().token;
 /**

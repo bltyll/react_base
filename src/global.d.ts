@@ -5,10 +5,17 @@ declare global {
     const ref: string;
     export default ref;
   }
+  declare module '*.png' {
+    const ref: string;
+    export default ref;
+  }
   declare module '*.m.css' {
     const style: { [key: string]: string };
     export default style;
   }
+  /**
+   * 类型工具
+   */
   declare type RecordAny = Record<string, any>;
   declare type RecordNever = Record<never, never>;
   declare type RecordAnyOrNever = RecordAny | RecordNever;

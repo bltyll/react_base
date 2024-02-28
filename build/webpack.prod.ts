@@ -12,14 +12,15 @@ const prodConfig: Configuration = merge(baseConfig, {
   mode: 'production', // 生产模式,会开启tree-shaking和压缩代码,以及其他优化
   performance: {
     //打包文件大小配置
-    maxAssetSize: 300 * 1000
+    maxAssetSize: 600 * 1000,
+    maxEntrypointSize: 600 * 1000
   },
   optimization: {
+    //代码切割
     splitChunks: {
       maxInitialRequests: MAX_REQUEST_NUM,
       maxAsyncRequests: MAX_REQUEST_NUM,
       minSize: MIN_LIB_CHUNK_SIZE,
-      // 分隔代码
       cacheGroups: {
         defaultVendors: false,
         default: false,
